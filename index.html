@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta author="Jean Brito" />
+    <title>Fantasy Bank</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <h1 class="hero-title">Fantasy Bank</h1>
+      <h4 class="hero-subtitle">Best bank for your money</h4>
+    </header>
+    <main>
+      <section class="login-box" id="login">
+        <form class="login-content">
+          <h2>Login</h2>
+
+          <label>
+            Account number <br />
+            <input type="text" id="account-number" required />
+          </label>
+
+          <label>
+            Password <br />
+            <input type="password" id="password" required />
+          </label>
+
+          <button type="submit" id="submit-btn">Submit</button>
+          <a href="#" id="go-register">Don't have an account? Create now</a>
+
+        </form>
+      </section>
+
+      <section class="login-box" id="register">
+        <form class="login-content">
+          <h2>Register</h2>
+
+          <label>
+            Full name <br />
+            <input type="text" id="full-name" required />
+          </label>
+
+          <label>
+            Password <br />
+            <input type="password" id="new-password" required />
+          </label>
+
+          <label>
+            Confirm password <br />
+            <input type="password" id="confirm-password" required />
+          </label>
+
+          <button type="submit" id="createAccount-btn">Create account</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>

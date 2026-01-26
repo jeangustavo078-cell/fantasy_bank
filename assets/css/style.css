@@ -1,0 +1,94 @@
+.hero {
+    background-color: #111;
+    color: #fff;
+    padding: 40px;
+    text-align: center;
+}
+
+.hero-dashboard {
+    background-color: #111;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 60px;
+    font-family: Arial, sans-serif;
+}
+
+.hero-subtitle {
+    font-size: 14px;
+    color: #ccc;
+    font-family: Arial, sans-serif;
+}
+
+.login-box {
+    background-color: #ffffff;
+    width: 320px;
+    margin: 60px auto;
+    padding: 24px;
+    border: 1px solid #ccc;
+}
+
+.login-content {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-content h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #111;
+}
+
+.login-content label {
+    display: block;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #333;
+}
+
+.login-content input {
+    width: 300px;
+    padding: 8px;
+    margin-top: 6px;
+    border: 1px solid #aaa;
+    background-color: #f9f9f9;
+}
+
+.login-content button {
+    width: 100%;
+    padding: 10px;
+    background-color: #111;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    margin-top: 18px;
+}
+
+#go-register {
+    display: block;
+    margin-top: 12px;
+    text-align: center;
+    color: #555;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+#go-register:hover {
+    color: #111;
+    text-decoration: underline;
+}
+
+#login,
+#register{
+    display: none;
+}
+
+#login.active,
+#register.active{
+    display: block;
+}

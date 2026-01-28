@@ -48,7 +48,7 @@ class BankAccount {
             this.accountNumber === inputAccountNumber &&
             this.password === inputPassword
         ) {
-            //Switch to the dashboard when the login is successful.
+            //Switch to the dashboard when the login is successful
             window.location.href = "dashboard.html";
         } else {
             alert("Invalid credentials");

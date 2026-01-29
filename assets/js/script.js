@@ -4,14 +4,18 @@ const registerSection = document.getElementById("register");
 const goRegister = document.getElementById("go-register");
 
 //login section will open first than register section
-loginSection.classList.add("active");
+if (loginSection) {
+    loginSection.classList.add("active");
+}
 
-goRegister.addEventListener("click", function (event) {
-    event.preventDefault();
+if (goRegister) {
+    goRegister.addEventListener("click", function (event) {
+        event.preventDefault();
 
-    loginSection.classList.remove("active");
-    registerSection.classList.add("active");
-});
+        loginSection.classList.remove("active");
+        registerSection.classList.add("active");
+    });
+}
 
 //creates a random account number for new users
 function generateAccountNumber() {
@@ -48,6 +52,10 @@ class BankAccount {
             this.accountNumber === inputAccountNumber &&
             this.password === inputPassword
         ) {
+            //this saves the name and number account in a internal storage to use in dashboard
+            sessionStorage.setItem("userName", this.userName);
+            sessionStorage.setItem("accountNumber", this.accountNumber);
+
             //Switch to the dashboard when the login is successful
             window.location.href = "dashboard.html";
         } else {
@@ -60,18 +68,21 @@ const bankAccount = new BankAccount();
 
 const submitButton = document.getElementById("submit-btn");
 
-submitButton.addEventListener("click", function(event) {
-    event.preventDefault();
+if (submitButton){
+    submitButton.addEventListener("click", function(event) {
+        event.preventDefault();
 
-    const sendAccountNumber = document.getElementById("account-number").value
-    const sendPassword = document.getElementById("password").value
+        const sendAccountNumber = document.getElementById("account-number").value
+        const sendPassword = document.getElementById("password").value
 
-    bankAccount.login(sendAccountNumber, sendPassword)
-})
+        bankAccount.login(sendAccountNumber, sendPassword)
+    })
+}
 
 const createAccountButton = document.getElementById("createAccount-btn")
 
-createAccountButton.addEventListener("click", function(event) {
+if (createAccountButton) {
+    createAccountButton.addEventListener("click", function(event) {
     event.preventDefault();
 
     const sendName = document.getElementById("full-name").value;
@@ -89,3 +100,10 @@ createAccountButton.addEventListener("click", function(event) {
         loginSection.classList.add("active");
     }
 });
+}
+
+const userName = sessionStorage.getItem("userName");
+document.getElementById("user-name").textContent = userName;
+
+const accountNumber = sessionStorage.getItem("accountNumber");
+document.getElementById("account-number").textContent = accountNumber;

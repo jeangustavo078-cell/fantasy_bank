@@ -4,45 +4,53 @@ const registerSection = document.getElementById("register");
 const goRegister = document.getElementById("go-register");
 
 //login section will open first than register section
+<<<<<<< Updated upstream
 loginSection.classList.add("active");
 
 goRegister.addEventListener("click", function (event) {
+=======
+if (loginSection) {
+  loginSection.classList.add("active");
+}
+
+if (goRegister) {
+  goRegister.addEventListener("click", function (event) {
+>>>>>>> Stashed changes
     event.preventDefault();
 
     loginSection.classList.remove("active");
     registerSection.classList.add("active");
+<<<<<<< Updated upstream
 });
+=======
+  });
+}
+>>>>>>> Stashed changes
 
 //creates a random account number for new users
 function generateAccountNumber() {
-    const min = 1000000;
-    const max = 9999999;
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  const min = 1000000;
+  const max = 9999999;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 class BankAccount {
-    constructor() {
-        this.accountNumber = null;
-        this.password = null;
-        this.balance = 0;
-        this.userName = null;
-    }
+  constructor() {
+    this.accountNumber = null;
+    this.password = null;
+    this.balance = 0;
+    this.userName = null;
+  }
 
-    createAccount(name, password, confirmPassword) {
-        if (password !== confirmPassword) {
-            alert("Passwords do not match");
-            return false;
-        } else {
-            this.userName = name;
-            this.password = password;
-            this.accountNumber = String(generateAccountNumber());
-            this.balance = 0;
+  deposit(amount) {
+    if (amount <= 0 || isNaN(amount)) return false;
+    this.balance += amount;
 
-            alert("Account created. Number: " + this.accountNumber);
-            return true;
-        }
-    }
+    this.save();
+    return true;
+  }
 
+<<<<<<< Updated upstream
     login(inputAccountNumber, inputPassword) {
         if (
             this.accountNumber === inputAccountNumber &&
@@ -54,12 +62,99 @@ class BankAccount {
             alert("Invalid credentials");
         }
     }
+=======
+  withdraw(amount) {
+    if (amount <= 0 || isNaN(amount)) return false;
+    if (amount > this.balance) return false;
+    this.balance -= amount;
+
+    this.save();
+    return true;
+  }
+>>>>>>> Stashed changes
 }
 
-const bankAccount = new BankAccount();
+class BankSystem {
+  constructor() {
+    this.accounts = [];
+    this.load();
+  }
+
+  createAccount(name, password, confirmPassword) {
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return false;
+    }
+
+    let accountNumber;
+
+    do {
+      accountNumber = String(generateAccountNumber());
+    } while (this.accounts.some((acc) => acc.accountNumber === accountNumber));
+
+    const account = new BankAccount();
+
+    account.userName = name;
+    account.password = password;
+    account.accountNumber = accountNumber;
+    account.balance = 0;
+
+    this.accounts.push(account);
+
+    alert("Account created. Number: " + accountNumber);
+
+    this.accounts.push(account);
+    this.save();
+
+    return true;
+  }
+
+  login(accountNumber, password) {
+    const account = this.accounts.find(
+      (acc) => acc.accountNumber === accountNumber,
+    );
+
+    if (!account) {
+      alert("Conta não encontrada");
+      return;
+    }
+
+    if (account.password !== password) {
+      alert("Senha incorreta");
+      return;
+    }
+
+    localStorage.setItem("loggedUser", account.accountNumber);
+    window.location.href = "dashboard.html";
+  }
+
+  load() {
+    const data = localStorage.getItem("bankAccounts");
+
+    if (data) {
+      const parsed = JSON.parse(data);
+
+      this.accounts = parsed.map((obj) => {
+        const acc = new BankAccount();
+        Object.assign(acc, obj);
+        return acc;
+      });
+    }
+  }
+
+  save() {
+    localStorage.setItem(
+        "bankAccounts",
+        JSON.stringify(this.accounts)
+    );
+  }
+}
+
+const bankSystem = new BankSystem();
 
 const submitButton = document.getElementById("submit-btn");
 
+<<<<<<< Updated upstream
 submitButton.addEventListener("click", function(event) {
     event.preventDefault();
 
@@ -68,24 +163,62 @@ submitButton.addEventListener("click", function(event) {
 
     bankAccount.login(sendAccountNumber, sendPassword)
 })
+=======
+if (submitButton) {
+  submitButton.addEventListener("click", function (event) {
+    event.preventDefault();
 
-const createAccountButton = document.getElementById("createAccount-btn")
+    const sendAccountNumber = document.getElementById("account-number").value;
+    const sendPassword = document.getElementById("password").value;
 
+    bankSystem.login(sendAccountNumber, sendPassword);
+  });
+}
+>>>>>>> Stashed changes
+
+const createAccountButton = document.getElementById("createAccount-btn");
+
+<<<<<<< Updated upstream
 createAccountButton.addEventListener("click", function(event) {
+=======
+if (createAccountButton) {
+  createAccountButton.addEventListener("click", function (event) {
+>>>>>>> Stashed changes
     event.preventDefault();
 
     const sendName = document.getElementById("full-name").value;
     const sendNewPassword = document.getElementById("new-password").value;
-    const sendConfirmPassword = document.getElementById("confirm-password").value;
+    const sendConfirmPassword =
+      document.getElementById("confirm-password").value;
 
-    const created = bankAccount.createAccount(
-        sendName,
-        sendNewPassword,
-        sendConfirmPassword
+    const created = bankSystem.createAccount(
+      sendName,
+      sendNewPassword,
+      sendConfirmPassword,
     );
 
     if (created) {
-        registerSection.classList.remove("active");
-        loginSection.classList.add("active");
+      registerSection.classList.remove("active");
+      loginSection.classList.add("active");
     }
+<<<<<<< Updated upstream
 });
+=======
+  });
+}
+
+const accNumber = localStorage.getItem("loggedUser");
+
+if (accNumber) {
+  const account = bankSystem.accounts.find(
+    acc => acc.accountNumber === accNumber
+  );
+
+  if (account) {
+    document.getElementById("user-name").textContent = account.userName;
+    document.getElementById("account-number").textContent = account.accountNumber;
+  } else {
+    localStorage.removeItem("loggedUser");
+  }
+}
+>>>>>>> Stashed changes

@@ -40,23 +40,6 @@ class BankAccount {
     return true;
   }
 
-<<<<<<< Updated upstream
-    login(inputAccountNumber, inputPassword) {
-        if (
-            this.accountNumber === inputAccountNumber &&
-            this.password === inputPassword
-        ) {
-            //this saves the name and number account in a internal storage to use in dashboard
-            sessionStorage.setItem("userName", this.userName);
-            sessionStorage.setItem("accountNumber", this.accountNumber);
-
-            //Switch to the dashboard when the login is successful
-            window.location.href = "dashboard.html";
-        } else {
-            alert("Invalid credentials");
-        }
-    }
-=======
   withdraw(amount) {
     if (amount <= 0 || isNaN(amount)) return false;
     if (amount > this.balance) return false;
@@ -65,7 +48,6 @@ class BankAccount {
     this.save();
     return true;
   }
->>>>>>> Stashed changes
 }
 
 class BankSystem {
@@ -155,7 +137,7 @@ if (submitButton){
         const sendAccountNumber = document.getElementById("account-number").value
         const sendPassword = document.getElementById("password").value
 
-        bankAccount.login(sendAccountNumber, sendPassword)
+        bankSystem.login(sendAccountNumber, sendPassword)
     })
 }
 
@@ -183,8 +165,17 @@ if (createAccountButton) {
 });
 }
 
-const userName = sessionStorage.getItem("userName");
-document.getElementById("user-name").textContent = userName;
+const accNumber = localStorage.getItem("loggedUser");
 
-const accountNumber = sessionStorage.getItem("accountNumber");
-document.getElementById("account-number").textContent = accountNumber;
+if (accNumber) {
+  const account = bankSystem.accounts.find(
+    acc => acc.accountNumber === accNumber
+  );
+
+  if (account) {
+    document.getElementById("user-name").textContent = account.userName;
+    document.getElementById("account-number").textContent = account.accountNumber;
+  } else {
+    localStorage.removeItem("loggedUser");
+  }
+}
